@@ -106,7 +106,7 @@
     </div>
 
     <!-- Page 1: Outer Cover / Digital Envelope (Classic Vintage Invitation Card) -->
-    <div class="cover" id="cover" onclick="executeOpenCard()">
+    <div class="cover" id="cover" onclick="this.style.display='none'; document.getElementById('card').style.display='block'; document.getElementById('card').classList.add('show'); document.body.style.overflow='auto'; if(typeof executeOpenCard==='function') executeOpenCard();">
         <div class="envelope-wrapper">
             <div class="envelope-card">
                 <!-- Vintage Flourish Corner Borders -->
@@ -152,7 +152,7 @@
                     <p class="vintage-venue-text">ณ โกดังเจ๊ชิง &amp; เฮียฟู่</p>
                     
                     <!-- Luxury Arch Pill-Shaped Open Card Button with Direct Onclick Guarantee 🌿✨ -->
-                    <button class="pill-open-btn" id="openCardBtn" onclick="executeOpenCard(); if(event) event.stopPropagation();" aria-label="เปิดการ์ดแต่งงาน">
+                    <button class="pill-open-btn" id="openCardBtn" onclick="document.getElementById('cover').style.display='none'; document.getElementById('card').style.display='block'; document.getElementById('card').classList.add('show'); document.body.style.overflow='auto'; if(typeof executeOpenCard==='function') executeOpenCard(); if(event) event.stopPropagation();" aria-label="เปิดการ์ดแต่งงาน">
                         <span class="pill-text-th">✨ สไลด์ หรือ คลิกเปิดการ์ด ✨</span>
                         <span class="pill-text-en">SLIDE OR CLICK TO OPEN</span>
                     </button>
@@ -460,6 +460,29 @@
     </main>
 
     <!-- JavaScript -->
-    <script src="script.js?v=26.0"></script>
+    <script src="script.js?v=99.0"></script>
+    <script>
+        // Direct Inline Open Card Guarantee
+        function executeOpenCard() {
+            var cov = document.getElementById('cover');
+            var crd = document.getElementById('card');
+            if (cov) {
+                cov.classList.add('open');
+                cov.style.display = 'none';
+                cov.style.opacity = '0';
+                cov.style.visibility = 'hidden';
+            }
+            if (crd) {
+                crd.classList.add('show');
+                crd.style.display = 'block';
+                crd.style.opacity = '1';
+            }
+            document.body.style.overflow = 'auto';
+            var els = document.querySelectorAll('.fade-in');
+            for (var i = 0; i < els.length; i++) {
+                els[i].classList.add('visible');
+            }
+        }
+    </script>
 </body>
 </html>
