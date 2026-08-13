@@ -448,27 +448,38 @@
     <!-- JavaScript -->
     <script src="script.js?v=99.0"></script>
     <script>
-        // Direct Inline Open Card Guarantee
-        function executeOpenCard() {
-            var cov = document.getElementById('cover');
-            var crd = document.getElementById('card');
-            if (cov) {
-                cov.classList.add('open');
-                cov.style.display = 'none';
-                cov.style.opacity = '0';
-                cov.style.visibility = 'hidden';
-            }
-            if (crd) {
-                crd.classList.add('show');
-                crd.style.display = 'block';
-                crd.style.opacity = '1';
-            }
-            document.body.style.overflow = 'auto';
-            var els = document.querySelectorAll('.fade-in');
-            for (var i = 0; i < els.length; i++) {
-                els[i].classList.add('visible');
+    <!-- Direct Fail-Safe Inline Single Script -->
+    <script>
+        function openWeddingCard() {
+            try {
+                var cov = document.getElementById('cover') || document.getElementById('cover-overlay') || document.querySelector('.cover');
+                var crd = document.getElementById('card') || document.querySelector('.card');
+                if (cov) {
+                    cov.style.display = 'none';
+                    cov.style.opacity = '0';
+                    cov.style.visibility = 'hidden';
+                    cov.style.pointerEvents = 'none';
+                }
+                if (crd) {
+                    crd.style.display = 'block';
+                    crd.style.opacity = '1';
+                }
+                document.body.style.overflow = 'auto';
+                var bgMusic = document.getElementById('bg-music');
+                if (bgMusic) {
+                    bgMusic.play().catch(function(){});
+                }
+                var els = document.querySelectorAll('.fade-in');
+                if (els) {
+                    for (var i = 0; i < els.length; i++) {
+                        if (els[i]) els[i].classList.add('visible');
+                    }
+                }
+            } catch (e) {
+                console.log('openWeddingCard inline error:', e);
             }
         }
+        var executeOpenCard = openWeddingCard;
     </script>
 </body>
 </html>
