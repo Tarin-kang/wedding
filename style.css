@@ -66,13 +66,15 @@ body {
 .cat-character {
     position: fixed;
     bottom: 15px;
-    left: -80px;
-    z-index: 150;
+    left: -90px;
+    z-index: 10001 !important;
     cursor: pointer;
-    animation: catRunAcross 25s linear infinite;
+    animation: catRunAcross 22s linear infinite;
     user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
     transition: transform .2s;
-    filter: drop-shadow(0 6px 12px rgba(43, 69, 51, 0.15));
+    filter: drop-shadow(0 6px 12px rgba(43, 69, 51, 0.2));
 }
 
 .cat-character.paused,
@@ -209,10 +211,10 @@ body {
 }
 
 /* ── Cover / Arch Shape Overlay Entrance ──────────── */
-.cover {
+.cover, #cover, #cover-overlay {
     position: fixed;
     inset: 0;
-    z-index: 200;
+    z-index: 999999 !important;
     background: radial-gradient(circle at 50% 35%, #f4faf6 0%, #d5e9dc 50%, #8ca995 100%);
     display: flex;
     align-items: center;
@@ -220,7 +222,8 @@ body {
     padding: 1.5rem;
     transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.7s var(--ease), visibility 0.9s;
     overflow: hidden;
-    touch-action: pan-y;
+    touch-action: manipulation;
+    cursor: pointer;
 }
 
 .cover::before {
@@ -371,7 +374,7 @@ body {
 }
 
 /* Luxury Arch Pill-Shape Open Card Button (Pulsing Glow Effect 🌿✨) */
-.pill-open-btn {
+.pill-open-btn, .open-card-btn, #openCardBtn, #open-card-btn {
     background: linear-gradient(135deg, #4b6854 0%, #344c3c 100%);
     border: 1px solid rgba(212, 199, 181, 0.7);
     border-radius: 50px;
@@ -381,7 +384,7 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer !important;
-    z-index: 10000 !important;
+    z-index: 1000000 !important;
     pointer-events: auto !important;
     position: relative !important;
     -webkit-tap-highlight-color: transparent;

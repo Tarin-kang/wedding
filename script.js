@@ -1,75 +1,87 @@
-// Global Open Card Function (Defensive execution guarantee with Null-checks)
-window.executeOpenCard = function() {
-    const cover = document.getElementById('cover') || document.querySelector('.cover');
-    const card = document.getElementById('card') || document.querySelector('.card');
-    
-    if (cover) {
-        cover.classList.add('open');
-        cover.style.transform = 'translateY(-100%)';
-        cover.style.opacity = '0';
-        cover.style.visibility = 'hidden';
-        cover.style.pointerEvents = 'none';
-        setTimeout(() => {
-            if (cover) cover.style.display = 'none';
-        }, 400);
-    }
-    
-    if (card) {
-        card.classList.add('show');
-        card.style.opacity = '1';
-        card.style.display = 'block';
-    }
-    
-    document.body.style.overflow = 'auto';
+// Global Open Card Functions (Defensive execution guarantee with Null-checks and Fallbacks)
+window.openWeddingCard = window.executeOpenCard = function() {
+    try {
+        const cover = document.getElementById('cover') || document.getElementById('cover-overlay') || document.querySelector('.cover');
+        const card = document.getElementById('card') || document.querySelector('.card');
+        
+        if (cover) {
+            cover.classList.add('open');
+            cover.style.transform = 'translateY(-100%)';
+            cover.style.opacity = '0';
+            cover.style.visibility = 'hidden';
+            cover.style.pointerEvents = 'none';
+            cover.style.display = 'none';
+        }
+        
+        if (card) {
+            card.classList.add('show');
+            card.style.opacity = '1';
+            card.style.display = 'block';
+        }
+        
+        document.body.style.overflow = 'auto';
 
-    // Activate all sections visible
-    document.querySelectorAll('.fade-in').forEach(el => {
-        if (el) el.classList.add('visible');
-    });
+        // Activate all sections visible
+        const els = document.querySelectorAll('.fade-in');
+        if (els) {
+            els.forEach(el => {
+                if (el) el.classList.add('visible');
+            });
+        }
 
-    if (typeof tryStartMusic === 'function') tryStartMusic();
-    if (typeof startPetals === 'function') startPetals();
+        if (typeof tryStartMusic === 'function') tryStartMusic();
+        if (typeof startPetals === 'function') startPetals();
+    } catch (err) {
+        console.log('openWeddingCard error:', err);
+    }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+    try {
+        // ── 1. Cover / Arch Shape Overlay Entrance (Click / Slide / Touch Open with Null-checks) ──
+        const cover = document.getElementById('cover') || document.getElementById('cover-overlay') || document.querySelector('.cover');
+        const card = document.getElementById('card') || document.querySelector('.card');
+        const openCardBtn = document.getElementById('openCardBtn') || document.getElementById('open-card-btn') || document.querySelector('.pill-open-btn') || document.querySelector('.open-card-btn');
 
-    // ── 1. Cover / Arch Shape Overlay Entrance (Click / Slide / Touch Open with Null-checks) ──
-    const cover = document.getElementById('cover') || document.querySelector('.cover');
-    const card = document.getElementById('card') || document.querySelector('.card');
-    const openCardBtn = document.getElementById('openCardBtn') || document.querySelector('.pill-open-btn');
+        ['click', 'touchstart'].forEach(evtType => {
+            if (openCardBtn) {
+                openCardBtn.addEventListener(evtType, (e) => {
+                    if (e) e.stopPropagation();
+                    window.openWeddingCard();
+                }, { passive: true });
+            }
 
-    ['click', 'touchstart'].forEach(evtType => {
-        if (openCardBtn) {
-            openCardBtn.addEventListener(evtType, (e) => {
-                if (e) e.stopPropagation();
-                window.executeOpenCard();
-            }, { passive: true });
-        }
+            if (cover) {
+                cover.addEventListener(evtType, () => {
+                    window.openWeddingCard();
+                }, { passive: true });
+            }
+        });
 
         if (cover) {
-            cover.addEventListener(evtType, () => {
-                window.executeOpenCard();
+            // Support Touch Swipe / Drag up to open cover smoothly
+            let touchStartY = 0;
+            cover.addEventListener('touchstart', (e) => {
+                if (e && e.touches && e.touches[0]) {
+                    touchStartY = e.touches[0].clientY;
+                }
+            }, { passive: true });
+
+            cover.addEventListener('touchend', (e) => {
+                if (e && e.changedTouches && e.changedTouches[0]) {
+                    const touchEndY = e.changedTouches[0].clientY;
+                    const diffY = touchStartY - touchEndY;
+                    if (diffY > 30) {
+                        window.openWeddingCard();
+                    }
+                }
             }, { passive: true });
         }
-    });
 
-        // Support Touch Swipe / Drag up to open cover smoothly
-        let touchStartY = 0;
-        cover.addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
-        }, { passive: true });
-
-        cover.addEventListener('touchend', (e) => {
-            const touchEndY = e.changedTouches[0].clientY;
-            const diffY = touchStartY - touchEndY;
-            // If swiped up more than 30px -> open cover
-            if (diffY > 30) {
-                executeOpenCard();
-            }
-        }, { passive: true });
+        document.body.style.overflow = 'hidden';
+    } catch (err) {
+        console.log('Cover setup error:', err);
     }
-
-    document.body.style.overflow = 'hidden';
 
     // ── 2. Animated 3D WHITE Cat Interaction (น้องแมวขาว 🐱🤍) ──
     const catCharacter = document.getElementById('catCharacter');
@@ -88,113 +100,125 @@ document.addEventListener('DOMContentLoaded', () => {
     let catFastTimer = null;
 
     if (catCharacter && catBubble) {
-        const handleCatClick = (e) => {
-            if (e.type === 'touchstart') {
-                // Prevent duplicate click trigger on touch devices
-                catCharacter.dataset.touched = 'true';
-            } else if (e.type === 'click' && catCharacter.dataset.touched === 'true') {
-                catCharacter.dataset.touched = 'false';
-                return;
+        let lastCatInteractTime = 0;
+
+        const handleCatInteract = (e) => {
+            if (e) {
+                if (e.cancelable) e.preventDefault();
+                e.stopPropagation();
             }
 
-            // 0. เล่นเสียงเมี๊ยววน่ารักๆ (Cute Meow Audio Sound)
+            const nowTime = Date.now();
+            if (nowTime - lastCatInteractTime < 220) return;
+            lastCatInteractTime = nowTime;
+
+            // 0. Play Meow Audio Sound
             playCuteMeowSound();
 
-            // 1. นับจำนวนครั้งการกด
+            // 1. Increment click count
             catClickCount++;
 
-            // 2. ถ้ากดครบทุกๆ 3 ครั้ง -> กระโดดเด้งดึ๋ง 0.4 วินาทีก่อนออกสปริ้นท์ซิ่ง!
+            // 2. Sprint jump on every 3rd click
             if (catClickCount % 3 === 0) {
-                // แสดงข้อความกระโดดสปริ้นท์
                 catBubble.textContent = "ย่อตัวกระโดด... ซิ่งเลย! 💨🐱⚡";
                 catBubble.style.animation = 'none';
                 void catBubble.offsetWidth;
                 catBubble.style.animation = 'catBubblePulse 0.5s ease';
 
-                // ปลดคลาสหยุดชั่วคราว
                 catCharacter.classList.remove('paused');
                 if (catBodyFlip) catBodyFlip.classList.remove('paused');
-                
-                // 2.1 เพิ่มอนิเมชันกระโดดเด้งดึ๋ง ณ ตำแหน่งที่คลิก (Jump Prep on catBodyFlip)
                 if (catBodyFlip) catBodyFlip.classList.add('jump-prep');
                 spawnCatHeartParticles(catCharacter);
 
-                // 2.2 เมื่อกระโดดเสร็จ 450ms -> พุ่งตัวสปริ้นท์ซิ่งทันที!
                 setTimeout(() => {
                     if (catBodyFlip) catBodyFlip.classList.remove('jump-prep');
                     catCharacter.classList.add('fast-speed');
                     if (catBodyFlip) catBodyFlip.classList.add('fast-speed');
 
-                    // สปริ้นท์ 2 วินาที แล้วกลับมาสปีดปกติ
                     if (catFastTimer) clearTimeout(catFastTimer);
                     catFastTimer = setTimeout(() => {
                         catCharacter.classList.remove('fast-speed');
                         if (catBodyFlip) catBodyFlip.classList.remove('fast-speed');
-                    }, 2000);
+                    }, 2500);
                 }, 450);
 
                 return;
             }
 
-            // 3. การกดครั้งปกติ -> นิ่งหยุดวิ่งเป็นเวลา 2 วินาที
+            // 3. Regular click: pause & show cute wish message
             catCharacter.classList.add('paused');
             if (catBodyFlip) catBodyFlip.classList.add('paused');
 
-            // สุ่มข้อความน่ารักๆ
             const randomMsg = catMessages[Math.floor(Math.random() * catMessages.length)];
             catBubble.textContent = randomMsg;
             catBubble.style.animation = 'none';
             void catBubble.offsetWidth;
             catBubble.style.animation = 'catBubblePulse 0.5s ease';
 
-            // สร้างเอฟเฟกต์หัวใจลอยรอบตัวแมว
             spawnCatHeartParticles(catCharacter);
 
-            // ตั้งเวลา 2 วินาที (2000ms) แล้วให้แมวออกวิ่งต่อสม่ำเสมอ
             if (catPauseTimer) clearTimeout(catPauseTimer);
             catPauseTimer = setTimeout(() => {
                 catCharacter.classList.remove('paused');
                 if (catBodyFlip) catBodyFlip.classList.remove('paused');
-            }, 2000);
+            }, 2500);
         };
 
-        catCharacter.addEventListener('click', handleCatClick);
-        catCharacter.addEventListener('touchstart', handleCatClick, { passive: true });
+        catCharacter.addEventListener('click', handleCatInteract);
+        catCharacter.addEventListener('touchstart', handleCatInteract, { passive: false });
     }
 
-    // Audio Sound Player Object for instant non-delayed cat click sound (meow.mp3 🐱🔊)
-    const meowAudioPlayer = new Audio();
-    const meowAudioSources = [
-        'meow.mp3',
-        'audio/meow.mp3',
-        'images/meow.mp3',
-        'sound.mp3',
-        'https://actions.google.com/sounds/v1/animals/cat_meow.ogg',
-        'https://cdn.freesound.org/previews/412/412017_5121236-lq.mp3'
-    ];
-    let currentMeowIdx = 0;
-
+    // Audio Sound Player for instant cat click sound (meow.mp3 & Web Audio Synth Fallback) 🐱🔊
     function playCuteMeowSound() {
-        // 1. ลองเล่นจาก HTML5 preloaded <audio id="meow-sound"> Element ล่วงหน้า
-        const meowElem = document.getElementById('meow-sound');
+        const meowElem = document.getElementById('meow-sound') || document.querySelector('audio#meow-sound');
         if (meowElem) {
             try {
-                meowElem.currentTime = 0; // Reset สำหรับกดรัวๆ
+                meowElem.currentTime = 0;
                 const playPromise = meowElem.play();
                 if (playPromise !== undefined) {
-                    playPromise.catch(error => {
-                        console.log('HTML5 Meow Audio Play Error:', error);
-                        fallbackDynamicMeowPlay();
+                    playPromise.catch(() => {
+                        playSynthesizedMeow();
                     });
+                } else {
+                    playSynthesizedMeow();
                 }
                 return;
             } catch (e) {
-                console.log('HTML5 Meow Catch Error:', e);
+                playSynthesizedMeow();
             }
+        } else {
+            playSynthesizedMeow();
         }
+    }
 
-        // 2. หากไม่มี HTML5 tag ให้ใช้ Dynamic Audio Object Fallback
-        fallbackDynamicMeowPlay();
+    function playSynthesizedMeow() {
+        try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return;
+            const ctx = new AudioCtx();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+
+            osc.type = 'sine';
+            const now = ctx.currentTime;
+            
+            // Realistic pitch contour: 700Hz -> 1150Hz -> 450Hz
+            osc.frequency.setValueAtTime(700, now);
+            osc.frequency.exponentialRampToValueAtTime(1150, now + 0.15);
+            osc.frequency.exponentialRampToValueAtTime(450, now + 0.45);
+
+            gain.gain.setValueAtTime(0.001, now);
+            gain.gain.linearRampToValueAtTime(0.3, now + 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start(now);
+            osc.stop(now + 0.5);
+        } catch (e) {
+            console.log('Synth meow error:', e);
+        }
     }
 
     function fallbackDynamicMeowPlay() {
