@@ -346,12 +346,12 @@ body {
     letter-spacing: 0.03em;
 }
 
-/* Luxury Arch Pill-Shape Open Card Button (Minimal Luxury 🌿✨) */
+/* Luxury Arch Pill-Shape Open Card Button (Pulsing Glow Effect 🌿✨) */
 .pill-open-btn {
     background: linear-gradient(135deg, #4b6854 0%, #344c3c 100%);
-    border: 1px solid rgba(212, 199, 181, 0.6);
+    border: 1px solid rgba(212, 199, 181, 0.7);
     border-radius: 50px;
-    padding: 0.8rem 2.6rem;
+    padding: 0.85rem 2.8rem;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
@@ -362,16 +362,28 @@ body {
     margin-top: 0.8rem;
     outline: none;
     position: relative;
+    animation: pillGlowPulse 2.4s infinite ease-in-out;
+}
+
+@keyframes pillGlowPulse {
+    0%, 100% {
+        box-shadow: 0 8px 25px rgba(75, 104, 84, 0.25), 0 0 0 0 rgba(122, 154, 131, 0.45);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 14px 32px rgba(75, 104, 84, 0.38), 0 0 0 10px rgba(122, 154, 131, 0);
+        transform: scale(1.03);
+    }
 }
 
 .pill-open-btn:hover {
-    transform: translateY(-2px) scale(1.04);
-    box-shadow: 0 14px 32px rgba(75, 104, 84, 0.35);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 16px 36px rgba(75, 104, 84, 0.4);
     background: linear-gradient(135deg, #577862 0%, #3d5846 100%);
 }
 
 .pill-text-th {
-    font-family: 'Noto Serif Thai', 'Noto Sans Thai', sans-serif;
+    font-family: 'Noto Serif Thai', 'Charm', sans-serif;
     font-size: 0.98rem;
     font-weight: 500;
     letter-spacing: 0.1em;
