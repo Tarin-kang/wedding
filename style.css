@@ -1303,12 +1303,12 @@ body {
 }
 
 .qr-frame {
-    background: #ffffff;
-    padding: 12px;
-    border-radius: 12px;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
     display: inline-block;
-    box-shadow: var(--shadow-soft);
-    border: 1px solid var(--border);
+    box-shadow: none;
+    border: none;
     margin-bottom: .8rem;
     max-width: 280px;
 }
@@ -1318,6 +1318,10 @@ body {
     max-width: 250px;
     height: auto;
     border-radius: 8px;
+    border: none;
+    padding: 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
     display: block;
     margin: 0 auto;
 }

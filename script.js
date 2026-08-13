@@ -1,16 +1,16 @@
 // Global Open Card Functions (Defensive execution guarantee with Null-checks and Fallbacks)
 window.openWeddingCard = window.executeOpenCard = function() {
     try {
-        const cover = document.getElementById('cover') || document.getElementById('cover-overlay') || document.querySelector('.cover');
+        const overlay = document.getElementById('cover-overlay') || document.getElementById('cover') || document.querySelector('.cover');
         const card = document.getElementById('card') || document.querySelector('.card');
         
-        if (cover) {
-            cover.classList.add('open');
-            cover.style.transform = 'translateY(-100%)';
-            cover.style.opacity = '0';
-            cover.style.visibility = 'hidden';
-            cover.style.pointerEvents = 'none';
-            cover.style.display = 'none';
+        if (overlay) {
+            overlay.classList.add('open');
+            overlay.style.transform = 'translateY(-100%)';
+            overlay.style.opacity = '0';
+            overlay.style.visibility = 'hidden';
+            overlay.style.pointerEvents = 'none';
+            overlay.style.display = 'none';
         }
         
         if (card) {
@@ -20,6 +20,12 @@ window.openWeddingCard = window.executeOpenCard = function() {
         }
         
         document.body.style.overflow = 'auto';
+
+        // Play Background Music
+        const bgMusic = document.getElementById('bg-music');
+        if (bgMusic) {
+            bgMusic.play().catch(() => {});
+        }
 
         // Activate all sections visible
         const els = document.querySelectorAll('.fade-in');
