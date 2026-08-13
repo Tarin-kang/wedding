@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warangkana &amp; Tarin Wedding Celebration — 12.12.2569</title>
+    <meta name="description" content="การ์ดเชิญงานมงคลสมรสระหว่าง วรางคณา วิทยปรีชากุล และ ธารินทร์ ปัญญา วันเสาร์ที่ 12 ธันวาคม พ.ศ. 2569">
+    
+    <!-- Open Graph for Line & Social Sharing -->
+    <meta property="og:title" content="Warangkana &amp; Tarin Wedding Celebration">
+    <meta property="og:description" content="ขอเรียนเชิญร่วมเป็นเกียรติในงานมงคลสมรส 12.12.2569">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+Thai:wght@200;300;400;500;600&family=Noto+Serif+Thai:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css?v=23.0">
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+<body>
+    <div id="ytmusic" style="position:fixed; top:-9999px; left:-9999px; width:1px; height:1px; opacity:0; pointer-events:none;"></div>
+
+    <!-- Falling Petals Canvas -->
+    <canvas id="petalsCanvas" class="petals-canvas"></canvas>
+
+    <!-- Animated Running 3D Fluffy WHITE Cat Element (น้องแมวขาว 🐱🤍) -->
+    <div id="catCharacter" class="cat-character" title="คลิกเพื่อเล่นกับน้องแมวขาว 🐱🤍" aria-label="ตัวการ์ตูนแมวสีขาววิ่งเล่น">
+        <div class="cat-bubble-wrap">
+            <div class="cat-bubble" id="catBubble">Meow~ 🤍</div>
+        </div>
+        <div class="cat-body-flip">
+            <svg class="cat-svg" viewBox="0 0 100 80" width="76" height="60">
+                <defs>
+                    <radialGradient id="catBodyGrad" cx="45%" cy="40%" r="55%">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="85%" stop-color="#f2f5f3"/>
+                        <stop offset="100%" stop-color="#dce3df"/>
+                    </radialGradient>
+                    <radialGradient id="catHeadGrad" cx="40%" cy="35%" r="60%">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="80%" stop-color="#f0f4f1"/>
+                        <stop offset="100%" stop-color="#d5ded8"/>
+                    </radialGradient>
+                    <linearGradient id="bellGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ffe259"/>
+                        <stop offset="100%" stop-color="#ffa751"/>
+                    </linearGradient>
+                </defs>
+                <!-- Cat Tail -->
+                <path class="cat-tail" d="M 15 50 Q 5 30 12 20 Q 20 15 16 30" fill="url(#catHeadGrad)" stroke="#4b6854" stroke-width="2.2" stroke-linecap="round"/>
+                <!-- Cat Body (3D White) -->
+                <ellipse cx="45" cy="52" rx="26" ry="18" fill="url(#catBodyGrad)" stroke="#4b6854" stroke-width="2"/>
+                <!-- Cute Gold Bell Collar -->
+                <path d="M 54 44 Q 68 47 78 40" fill="none" stroke="#e05638" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="66" cy="46" r="3.5" fill="url(#bellGrad)" stroke="#4b6854" stroke-width="1"/>
+                <!-- Cat Head (3D White) -->
+                <circle cx="70" cy="38" r="16" fill="url(#catHeadGrad)" stroke="#4b6854" stroke-width="2"/>
+                <!-- Ears -->
+                <polygon points="59,26 65,10 72,23" fill="url(#catHeadGrad)" stroke="#4b6854" stroke-width="2"/>
+                <polygon points="72,23 79,10 85,26" fill="url(#catHeadGrad)" stroke="#4b6854" stroke-width="2"/>
+                <!-- Inner Ears (Rosy Pink) -->
+                <polygon points="62,24 65,14 68,22" fill="#ffb7b2"/>
+                <polygon points="75,22 79,14 82,24" fill="#ffb7b2"/>
+                <!-- Sparkle Cute Eyes -->
+                <circle cx="66" cy="36" r="2.6" fill="#1b281f"/>
+                <circle cx="76" cy="36" r="2.6" fill="#1b281f"/>
+                <!-- Eye Sparkle Highlights -->
+                <circle cx="65.2" cy="34.8" r="0.9" fill="#ffffff"/>
+                <circle cx="67.0" cy="37.0" r="0.4" fill="#ffffff"/>
+                <circle cx="75.2" cy="34.8" r="0.9" fill="#ffffff"/>
+                <circle cx="77.0" cy="37.0" r="0.4" fill="#ffffff"/>
+                <!-- Pink Nose & Cute Mouth -->
+                <polygon points="70,39.5 72,39.5 71,41.5" fill="#ff9aa2"/>
+                <path d="M 68 42 Q 71 44.5 74 42" fill="none" stroke="#1b281f" stroke-width="1.2" stroke-linecap="round"/>
+                <!-- Cute Blush Cheeks -->
+                <ellipse cx="61" cy="40" rx="3" ry="1.8" fill="#ffb7b2" opacity="0.7"/>
+                <ellipse cx="81" cy="40" rx="3" ry="1.8" fill="#ffb7b2" opacity="0.7"/>
+                <!-- Whiskers -->
+                <line x1="55" y1="37" x2="46" y2="35" stroke="#4b6854" stroke-width="1.2"/>
+                <line x1="55" y1="40" x2="46" y2="41" stroke="#4b6854" stroke-width="1.2"/>
+                <line x1="83" y1="37" x2="92" y2="35" stroke="#4b6854" stroke-width="1.2"/>
+                <line x1="83" y1="40" x2="92" y2="41" stroke="#4b6854" stroke-width="1.2"/>
+                <!-- Paws (White) -->
+                <ellipse class="paw paw-1" cx="28" cy="67" rx="5" ry="4" fill="#ffffff" stroke="#4b6854" stroke-width="1.5"/>
+                <ellipse class="paw paw-2" cx="40" cy="67" rx="5" ry="4" fill="#ffffff" stroke="#4b6854" stroke-width="1.5"/>
+                <ellipse class="paw paw-3" cx="52" cy="67" rx="5" ry="4" fill="#ffffff" stroke="#4b6854" stroke-width="1.5"/>
+                <ellipse class="paw paw-4" cx="64" cy="67" rx="5" ry="4" fill="#ffffff" stroke="#4b6854" stroke-width="1.5"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Floating Audio & Ambient Controls -->
+    <div class="floating-controls">
+        <button id="petalToggleBtn" class="control-btn active" title="เปิด/ปิด กลีบดอกไม้" aria-label="เปิด/ปิด กลีบดอกไม้">
+            <span class="icon">🌸</span>
+        </button>
+        <button id="musicToggleBtn" class="control-btn" title="เปิด/ปิด เสียงเพลงบรรเลง" aria-label="เปิด/ปิด เสียงเพลงบรรเลง">
+            <span class="icon">🎵</span>
+        </button>
+    </div>
+
+    <!-- Page 1: Outer Cover / Digital Envelope -->
+    <div class="cover" id="cover">
+        <div class="envelope-wrapper">
+            <div class="envelope-card fade-in">
+                <!-- Page 1 Elegant Arched Photo Frame -->
+                <div class="envelope-decoration">
+                    <div class="cover-photo-frame">
+                        <img id="coverPhotoImg" class="cover-photo-img" src="__WT_LOGO_B64__" onerror="this.onerror=null;this.src='images/cover_photo.jpg';" alt="Warangkana &amp; Tarin Cover Photo">
+                    </div>
+                </div>
+                <div class="cover-content">
+                    <p class="envelope-subtitle">WEDDING INVITATION</p>
+                    <h1 class="envelope-title">Warangkana &amp; Tarin</h1>
+                    <p class="envelope-date">12 DECEMBER 2026</p>
+                    
+                    <button class="seal-btn wax-seal" id="openCardBtn" aria-label="เปิดการ์ดแต่งงาน">
+                        <span class="seal-text">เปิดการ์ด</span>
+                        <span class="seal-tap">OPEN INVITATION</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2: Main Wedding Invitation Card -->
+    <main class="card" id="card">
+        
+        <!-- Header & Hero Section -->
+        <header class="section hero">
+            <div class="hero-bg-texture"></div>
+            
+            <!-- Side Botanical Vines -->
+            <div class="hero-side-vine vine-left fade-in">
+                <svg viewBox="0 0 100 300" width="90" height="260" fill="none">
+                    <path d="M60 0 Q30 90 70 180 T40 280" stroke="#7a9a83" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.5"/>
+                    <path d="M55 25 C35 15 25 35 50 40 Z" fill="#7a9a83" opacity="0.45"/>
+                    <path d="M45 75 C20 65 15 85 40 90 Z" fill="#4b6854" opacity="0.45"/>
+                    <path d="M62 125 C37 115 32 135 57 140 Z" fill="#7a9a83" opacity="0.45"/>
+                    <path d="M50 175 C25 165 20 185 45 190 Z" fill="#9caf88" opacity="0.45"/>
+                    <path d="M55 235 C30 225 25 245 50 250 Z" fill="#4b6854" opacity="0.45"/>
+                </svg>
+            </div>
+            <div class="hero-side-vine vine-right fade-in">
+                <svg viewBox="0 0 100 300" width="90" height="260" fill="none">
+                    <path d="M40 0 Q70 90 30 180 T60 280" stroke="#7a9a83" stroke-width="1.5" stroke-dasharray="5 3" opacity="0.5"/>
+                    <path d="M45 25 C65 15 75 35 50 40 Z" fill="#7a9a83" opacity="0.45"/>
+                    <path d="M55 75 C80 65 85 85 60 90 Z" fill="#4b6854" opacity="0.45"/>
+                    <path d="M38 125 C63 115 68 135 43 140 Z" fill="#7a9a83" opacity="0.45"/>
+                    <path d="M50 175 C75 165 80 185 55 190 Z" fill="#9caf88" opacity="0.45"/>
+                    <path d="M45 235 C70 225 75 245 50 250 Z" fill="#4b6854" opacity="0.45"/>
+                </svg>
+            </div>
+
+            <div class="hero-container">
+                <p class="hero-kicker fade-in">ขอเรียนเชิญร่วมเป็นเกียรติในงานมงคลสมรส</p>
+                
+                <div class="hero-names-wrap fade-in">
+                    <h1 class="hero-names">
+                        <span class="name-en name-bride">Warangkana Wittayapreechakorn</span>
+                        <span class="amp">&amp;</span>
+                        <span class="name-en name-groom">Tarin Panya</span>
+                    </h1>
+                </div>
+
+                <div class="hero-divider fade-in">
+                    <!-- Inline Botanical Branch Vector so it never 404s -->
+                    <svg class="hero-branch-svg" viewBox="0 0 200 40" width="160" height="32">
+                        <path d="M 10 20 Q 100 5 190 20" fill="none" stroke="#7a9a83" stroke-width="1.5"/>
+                        <!-- Leaves -->
+                        <path d="M 40 17 Q 35 8 45 14 Z" fill="#7a9a83"/>
+                        <path d="M 60 15 Q 65 5 55 12 Z" fill="#7a9a83"/>
+                        <path d="M 90 12 Q 85 2 95 10 Z" fill="#7a9a83"/>
+                        <path d="M 110 12 Q 115 2 105 10 Z" fill="#7a9a83"/>
+                        <path d="M 140 15 Q 135 7 145 13 Z" fill="#7a9a83"/>
+                        <path d="M 160 17 Q 165 8 155 14 Z" fill="#7a9a83"/>
+                    </svg>
+                </div>
+
+                <!-- Page 2 Wedding Card Frame with Base64 Dancing Couple Watercolor Image -->
+                <div class="couple-card-wrap fade-in">
+                    <div class="couple-frame">
+                        <div class="couple-img-container">
+                            <img id="preweddingImg" class="couple-img" src="__COVER_B64__" onerror="this.onerror=null;this.src='images/ภาพแรก.jpg';" alt="Warangkana &amp; Tarin Wedding Photo">
+                        </div>
+                        <div class="couple-caption">
+                            <h2 class="couple-card-title">Warangkana &amp; Tarin Wedding</h2>
+                            <p class="quote">&ldquo;Two lives, two hearts, joined together in friendship, united forever in love.&rdquo;</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-date-badge fade-in">
+                    <time datetime="2026-12-12">วันเสาร์ที่ 12 ธันวาคม พ.ศ. 2569</time>
+                </div>
+            </div>
+        </header>
+
+        <!-- Countdown & Save The Date -->
+        <section class="section countdown-section">
+            <div class="section-header fade-in">
+                <p class="section-label">COUNTDOWN</p>
+                <h2 class="section-title">นับถอยหลังสู่วันพิเศษ</h2>
+            </div>
+
+            <div class="countdown fade-in" id="countdown" aria-label="นับถอยหลังสู่วันแต่งงาน">
+                <div class="cd-unit">
+                    <span class="cd-num" id="cd-days">00</span>
+                    <span class="cd-label">วัน (Days)</span>
+                </div>
+                <span class="cd-sep" aria-hidden="true">:</span>
+                <div class="cd-unit">
+                    <span class="cd-num" id="cd-hours">00</span>
+                    <span class="cd-label">ชม. (Hours)</span>
+                </div>
+                <span class="cd-sep" aria-hidden="true">:</span>
+                <div class="cd-unit">
+                    <span class="cd-num" id="cd-min">00</span>
+                    <span class="cd-label">นาที (Mins)</span>
+                </div>
+                <span class="cd-sep" aria-hidden="true">:</span>
+                <div class="cd-unit">
+                    <span class="cd-num" id="cd-sec">00</span>
+                    <span class="cd-label">วินาที (Secs)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule / Agenda Section -->
+        <section class="section schedule-section">
+            <div class="section-header fade-in">
+                <p class="section-label">TIMELINE</p>
+                <h2 class="section-title">กำหนดการพิธีมงคลสมรส</h2>
+                <p class="section-sub">วันเสาร์ที่ 12 ธันวาคม พ.ศ. 2569</p>
+            </div>
+
+            <div class="timeline fade-in">
+                <div class="timeline-item">
+                    <div class="timeline-time">07:09 น.</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">พิธีเจริญพระพุทธมนต์</h3>
+                        <p class="timeline-desc">ถวายภัตตาหารเช้าแด่พระสงฆ์เพื่อความเป็นสิริมงคล</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">08:39 น.</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">พิธีแห่ขันหมาก &amp; หมั้นหมาย</h3>
+                        <p class="timeline-desc">ตั้งขบวนขันหมากเจ้าบ่าว และพิธีสวมแหวนหมั้น</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">09:39 น.</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">พิธีรดน้ำพระพุทธมนต์</h3>
+                        <p class="timeline-desc">พิธีหลั่งน้ำพระพุทธมนต์และประสาทพรแก่คู่บ่าวสาว</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">11:30 น.</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">งานเลี้ยงฉลองมงคลสมรส</h3>
+                        <p class="timeline-desc">ร่วมรับประทานอาหารและแสดงความยินดี (โต๊ะจีน / บุฟเฟต์)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location & Map Section -->
+        <section class="section location-section">
+            <div class="section-header fade-in">
+                <p class="section-label">LOCATION</p>
+                <h2 class="section-title">สถานที่จัดงาน</h2>
+                <p class="section-sub">ณ สถานที่จัดงานมงคลสมรส (สถานที่จัดงานแต่งงาน)</p>
+            </div>
+
+            <div class="location-card fade-in">
+                <div class="map-container">
+                    <iframe 
+                        title="Google Maps Location"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.647385472851!2d100.501444!3d13.756331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDQ1JzIyLjgiTiAxMDDCsDMwJzA1LjIiRQ!5e0!3m2!1sth!2sth!4v1620000000000!5m2!1sth!2sth" 
+                        width="100%" 
+                        height="300" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+                <div class="location-details">
+                    <h3 class="venue-name">สถานที่จัดงานมงคลสมรส</h3>
+                    <p class="venue-address">กรุงเทพมหานคร และพื้นที่ใกล้เคียง</p>
+                    <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn-map">
+                        <span class="icon">📍</span> นำทางด้วย Google Maps
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dress Code / Theme Section -->
+        <section class="section dresscode-section">
+            <div class="section-header fade-in">
+                <p class="section-label">DRESS CODE</p>
+                <h2 class="section-title">ธีมสีเครื่องแต่งกาย</h2>
+                <p class="section-sub">Sage Green &amp; Warm Earth Tones</p>
+            </div>
+
+            <div class="palette-grid fade-in">
+                <div class="color-swatch" style="background-color: #4b6854;" title="Sage Green">
+                    <span class="color-name">Sage Green</span>
+                </div>
+                <div class="color-swatch" style="background-color: #7a9a83;" title="Soft Sage">
+                    <span class="color-name">Soft Sage</span>
+                </div>
+                <div class="color-swatch" style="background-color: #9caf88;" title="Olive Mist">
+                    <span class="color-name">Olive Mist</span>
+                </div>
+                <div class="color-swatch" style="background-color: #dbe4dd;" title="Eucalyptus">
+                    <span class="color-name">Eucalyptus</span>
+                </div>
+                <div class="color-swatch" style="background-color: #e8ded1;" title="Warm Cream">
+                    <span class="color-name">Warm Cream</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP & Wishes Section -->
+        <section class="section rsvp-section">
+            <div class="section-header fade-in">
+                <p class="section-label">RSVP &amp; WISHES</p>
+                <h2 class="section-title">ตอบรับการเข้าร่วม &amp; อวยพร</h2>
+                <p class="section-sub">กรุณาแจ้งการเข้าร่วมงานล่วงหน้าเพื่อการจัดเตรียมสถานที่</p>
+            </div>
+
+            <form id="rsvpForm" class="rsvp-form fade-in">
+                <div class="form-group">
+                    <label for="guestName">ชื่อ - นามสกุล (Guest Name)</label>
+                    <input type="text" id="guestName" required placeholder="เช่น คุณสมชาย และครอบครัว">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="guestCount">จำนวนผู้เข้าร่วม (Attending)</label>
+                        <select id="guestCount">
+                            <option value="1">1 ท่าน</option>
+                            <option value="2">2 ท่าน</option>
+                            <option value="3">3 ท่าน</option>
+                            <option value="4+">4 ท่านขึ้นไป</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="attendance">การมาร่วมงาน (Status)</label>
+                        <select id="attendance">
+                            <option value="yes">มาร่วมงานด้วยความยินดี</option>
+                            <option value="no">ติดภารกิจ ไม่สามารถมาร่วมงานได้</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="wishesMsg">คำอวยพรถึงบ่าวสาว (Best Wishes)</label>
+                    <textarea id="wishesMsg" rows="3" placeholder="เขียนคำอวยพรความหมายดีๆ ถึงวรางคณา &amp; ธารินทร์..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">ส่งคำตอบรับ &amp; อวยพร 💌</button>
+            </form>
+
+            <!-- Live Wishes Board -->
+            <div class="wishes-board fade-in">
+                <h3 class="wishes-title">คำอวยพรจากแขกผู้มีเกียรติ</h3>
+                <div class="wishes-list" id="wishesList">
+                    <div class="wish-card">
+                        <p class="wish-author">ครอบครัววิทยปรีชากุล</p>
+                        <p class="wish-text">ขอให้น้องวรางคณาและน้องธารินทร์มีความสุขมากๆ ครองรักกันยั่งยืนยาวนานครับ 💖</p>
+                        <span class="wish-time">เมื่อสักครู่</span>
+                    </div>
+                    <div class="wish-card">
+                        <p class="wish-author">แก๊งเพื่อนสนิท</p>
+                        <p class="wish-text">ยินดีกับทั้งสองคนด้วยน้าาา เจ้าสาวสวยมาก เจ้าบ่าวหล่อเท่ เหมาะสมกันที่สุด! 🎉🌿</p>
+                        <span class="wish-time">1 ชม. ที่แล้ว</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Digital Gifting / Monetary Gift -->
+        <section class="section gifting-section">
+            <div class="section-header fade-in">
+                <p class="section-label">GIFTING</p>
+                <h2 class="section-title">ร่วมอวยพร &amp; ของขวัญแทนใจ</h2>
+                <p class="section-sub">ขอขอบพระคุณในน้ำใจและร่วมแสดงความยินดีแก่คู่บ่าวสาว</p>
+            </div>
+
+            <div class="gifting-card fade-in">
+                <button class="qr-toggle-btn" id="qrToggleBtn">
+                    <span class="icon">💳</span> แสดง QR Code สำหรับร่วมอวยพร
+                </button>
+                
+                <div class="qr-box hidden" id="qrBox">
+                    <div class="qr-frame">
+                        <!-- Clean PromtPay QR Code Element -->
+                        <img id="promptpayQrImg" src="__QR_B64__" alt="PromptPay QR Code">
+                    </div>
+                    <p class="account-name">ชื่อบัญชี: วรางคณา &amp; ธารินทร์ (PromptPay)</p>
+                    <p class="account-number">พร้อมเพย์: XXX-X-XXXXX-X</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content fade-in">
+                <p class="footer-names">Warangkana &amp; Tarin</p>
+                <p class="footer-thank">ขอขอบพระคุณทุกท่านจากใจจริง</p>
+                <p class="footer-date">12.12.2569</p>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- JavaScript -->
+    <script src="script.js?v=23.0"></script>
+</body>
+</html>
