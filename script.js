@@ -65,7 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let catFastTimer = null;
 
     if (catCharacter && catBubble) {
-        catCharacter.addEventListener('click', () => {
+        const handleCatClick = (e) => {
+            if (e.type === 'touchstart') {
+                // Prevent duplicate click trigger on touch devices
+                catCharacter.dataset.touched = 'true';
+            } else if (e.type === 'click' && catCharacter.dataset.touched === 'true') {
+                catCharacter.dataset.touched = 'false';
+                return;
+            }
+
             // 0. เล่นเสียงเมี๊ยววน่ารักๆ (Cute Meow Audio Sound)
             playCuteMeowSound();
 
@@ -125,7 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 catCharacter.classList.remove('paused');
                 if (catBodyFlip) catBodyFlip.classList.remove('paused');
             }, 2000);
-        });
+        };
+
+        catCharacter.addEventListener('click', handleCatClick);
+        catCharacter.addEventListener('touchstart', handleCatClick, { passive: true });
     }
 
     // Audio Sound Player Object for instant non-delayed cat click sound (meow.mp3 🐱🔊)
@@ -141,8 +152,30 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentMeowIdx = 0;
 
     function playCuteMeowSound() {
+        // 1. ลองเล่นจาก HTML5 preloaded <audio id="meow-sound"> Element ล่วงหน้า
+        const meowElem = document.getElementById('meow-sound');
+        if (meowElem) {
+            try {
+                meowElem.currentTime = 0; // Reset สำหรับกดรัวๆ
+                const playPromise = meowElem.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log('HTML5 Meow Audio Play Error:', error);
+                        fallbackDynamicMeowPlay();
+                    });
+                }
+                return;
+            } catch (e) {
+                console.log('HTML5 Meow Catch Error:', e);
+            }
+        }
+
+        // 2. หากไม่มี HTML5 tag ให้ใช้ Dynamic Audio Object Fallback
+        fallbackDynamicMeowPlay();
+    }
+
+    function fallbackDynamicMeowPlay() {
         try {
-            // เล่นไฟล์ meow.mp3 ทันที (พร้อม currentTime = 0 เพื่อให้กดรัวๆ แล้วเสียงเล่นซ้ำได้โดยไม่ดีเลย์)
             const audioSrc = meowAudioSources[currentMeowIdx % meowAudioSources.length];
             meowAudioPlayer.src = audioSrc;
             meowAudioPlayer.volume = 0.9;
@@ -150,14 +183,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const promise = meowAudioPlayer.play();
             
             if (promise !== undefined) {
-                promise.catch(() => {
-                    // หากซอร์สนี้ติดข้อจำกัด ให้ลองซอร์สถัดไป
+                promise.catch(error => {
+                    console.log('Dynamic Meow Play Error:', error);
                     currentMeowIdx++;
                     const nextSrc = meowAudioSources[currentMeowIdx % meowAudioSources.length];
                     const nextAudio = new Audio(nextSrc);
                     nextAudio.volume = 0.9;
                     nextAudio.currentTime = 0;
-                    nextAudio.play().catch(() => {
+                    nextAudio.play().catch(err => {
+                        console.log('Next Dynamic Audio Error:', err);
                         playRealisticMeowFallback();
                     });
                 });
