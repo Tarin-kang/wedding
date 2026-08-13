@@ -38,35 +38,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const card = document.getElementById('card') || document.querySelector('.card');
     const openCardBtn = document.getElementById('openCardBtn') || document.querySelector('.pill-open-btn');
 
-    if (openCardBtn) {
-        openCardBtn.addEventListener('click', (e) => {
-            if (e) e.stopPropagation();
-            window.executeOpenCard();
-        });
-    }
+    ['click', 'touchstart'].forEach(evtType => {
+        if (openCardBtn) {
+            openCardBtn.addEventListener(evtType, (e) => {
+                if (e) e.stopPropagation();
+                window.executeOpenCard();
+            }, { passive: true });
+        }
 
-    if (cover) {
-        cover.addEventListener('click', () => {
-            window.executeOpenCard();
-        });
-
-        let touchStartY = 0;
-        cover.addEventListener('touchstart', (e) => {
-            if (e.touches && e.touches[0]) {
-                touchStartY = e.touches[0].clientY;
-            }
-        }, { passive: true });
-
-        cover.addEventListener('touchend', (e) => {
-            if (e.changedTouches && e.changedTouches[0]) {
-                const touchEndY = e.changedTouches[0].clientY;
-                const diffY = touchStartY - touchEndY;
-                if (diffY > 30) {
-                    window.executeOpenCard();
-                }
-            }
-        }, { passive: true });
-    }
+        if (cover) {
+            cover.addEventListener(evtType, () => {
+                window.executeOpenCard();
+            }, { passive: true });
+        }
+    });
 
         // Support Touch Swipe / Drag up to open cover smoothly
         let touchStartY = 0;

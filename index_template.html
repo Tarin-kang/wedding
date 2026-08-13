@@ -106,9 +106,9 @@
     </div>
 
     <!-- Page 1: Outer Cover / Digital Envelope (Classic Vintage Invitation Card) -->
-    <div class="cover" id="cover" onclick="this.style.display='none'; document.getElementById('card').style.display='block'; document.getElementById('card').classList.add('show'); document.body.style.overflow='auto'; if(typeof executeOpenCard==='function') executeOpenCard();">
-        <div class="envelope-wrapper">
-            <div class="envelope-card">
+    <div class="cover" id="cover" onclick="executeOpenCard(); this.style.display='none';" ontouchstart="executeOpenCard(); this.style.display='none';">
+        <div class="envelope-wrapper" onclick="executeOpenCard()" ontouchstart="executeOpenCard()">
+            <div class="envelope-card" onclick="executeOpenCard()" ontouchstart="executeOpenCard()">
                 <!-- Vintage Flourish Corner Borders -->
                 <svg class="vintage-corner vintage-corner-tl" viewBox="0 0 50 50" fill="none" stroke="#7a9a83" stroke-width="1.5">
                     <path d="M 5 25 C 5 10 10 5 25 5 M 5 15 C 5 8 8 5 15 5 M 2 2 L 48 2 M 2 2 L 2 48" />
@@ -151,8 +151,8 @@
                     <!-- Venue Title -->
                     <p class="vintage-venue-text">ณ โกดังเจ๊ชิง &amp; เฮียฟู่</p>
                     
-                    <!-- Luxury Arch Pill-Shaped Open Card Button with Direct Onclick Guarantee 🌿✨ -->
-                    <button class="pill-open-btn" id="openCardBtn" onclick="document.getElementById('cover').style.display='none'; document.getElementById('card').style.display='block'; document.getElementById('card').classList.add('show'); document.body.style.overflow='auto'; if(typeof executeOpenCard==='function') executeOpenCard(); if(event) event.stopPropagation();" aria-label="เปิดการ์ดแต่งงาน">
+                    <!-- Luxury Arch Pill-Shaped Open Card Button with Direct Onclick & Touchstart Guarantee 🌿✨ -->
+                    <button class="pill-open-btn" id="openCardBtn" onclick="executeOpenCard(); if(event) event.stopPropagation();" ontouchstart="executeOpenCard(); if(event) event.stopPropagation();" aria-label="เปิดการ์ดแต่งงาน">
                         <span class="pill-text-th">✨ สไลด์ หรือ คลิกเปิดการ์ด ✨</span>
                         <span class="pill-text-en">SLIDE OR CLICK TO OPEN</span>
                     </button>
