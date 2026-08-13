@@ -97,20 +97,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Real Cat Meow Audio Sound (เสียงแมวจริงๆ 🐱🔊)
-    const realMeowSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
-    realMeowSound.volume = 0.85;
+    // Authentic Real Domestic Cat Audio Sounds (เสียงแมวบ้านจริง 100% 🐱🔊)
+    const meowAudioSources = [
+        'https://actions.google.com/sounds/v1/animals/cat_meow.ogg',
+        'https://cdn.freesound.org/previews/412/412017_5121236-lq.mp3',
+        'https://assets.mixkit.co/active_storage/sfx/92/92-preview.mp3'
+    ];
+    let currentMeowIdx = 0;
 
     function playCuteMeowSound() {
         try {
-            // 1. เล่นไฟล์เสียงแมวจริง (Real Cat Meow MP3)
-            const audioClone = realMeowSound.cloneNode(true);
-            audioClone.volume = 0.85;
-            const promise = audioClone.play();
+            // 1. เล่นไฟล์อัดเสียงแมวบ้านจริง (Authentic Real Cat Meow Audio)
+            const audioSrc = meowAudioSources[currentMeowIdx % meowAudioSources.length];
+            currentMeowIdx++;
+            const audio = new Audio(audioSrc);
+            audio.volume = 0.9;
+            const promise = audio.play();
             
             if (promise !== undefined) {
                 promise.catch(() => {
-                    // 2. หากติดข้อจำกัดของบราวเซอร์หรือออฟไลน์ ให้ใช้เสียงสังเคราะห์ธรรมชาติ (Realistic Natural Meow Fallback)
                     playRealisticMeowFallback();
                 });
             }
