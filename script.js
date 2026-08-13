@@ -128,12 +128,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Audio Sound Sources (ไฟล์เสียง MP3 ในโฟลเดอร์โครงการ หรือ Online Sound 🎵🔊)
+    // Audio Sound Player Object for instant non-delayed cat click sound (meow.mp3 🐱🔊)
+    const meowAudioPlayer = new Audio();
     const meowAudioSources = [
         'meow.mp3',
-        'sound.mp3',
+        'audio/meow.mp3',
         'images/meow.mp3',
-        'images/sound.mp3',
+        'sound.mp3',
         'https://actions.google.com/sounds/v1/animals/cat_meow.ogg',
         'https://cdn.freesound.org/previews/412/412017_5121236-lq.mp3'
     ];
@@ -141,19 +142,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function playCuteMeowSound() {
         try {
-            // เล่นไฟล์ MP3 จากโฟลเดอร์ หรือ Online sound
+            // เล่นไฟล์ meow.mp3 ทันที (พร้อม currentTime = 0 เพื่อให้กดรัวๆ แล้วเสียงเล่นซ้ำได้โดยไม่ดีเลย์)
             const audioSrc = meowAudioSources[currentMeowIdx % meowAudioSources.length];
-            const audio = new Audio(audioSrc);
-            audio.volume = 0.9;
-            const promise = audio.play();
+            meowAudioPlayer.src = audioSrc;
+            meowAudioPlayer.volume = 0.9;
+            meowAudioPlayer.currentTime = 0;
+            const promise = meowAudioPlayer.play();
             
             if (promise !== undefined) {
                 promise.catch(() => {
-                    // หากไฟล์นี้ไม่มีหรือถูกบล็อก ลองไฟล์ถัดไป
+                    // หากซอร์สนี้ติดข้อจำกัด ให้ลองซอร์สถัดไป
                     currentMeowIdx++;
                     const nextSrc = meowAudioSources[currentMeowIdx % meowAudioSources.length];
                     const nextAudio = new Audio(nextSrc);
                     nextAudio.volume = 0.9;
+                    nextAudio.currentTime = 0;
                     nextAudio.play().catch(() => {
                         playRealisticMeowFallback();
                     });
@@ -162,6 +165,14 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {
             playRealisticMeowFallback();
         }
+
+        // รักษาให้เพลงบรรเลงหลัก (ytPlayer) เล่นต่อเนื่องไม่สะดุด
+        if (isPlayingMusic && ytPlayer && typeof ytPlayer.playVideo === 'function') {
+            try {
+                ytPlayer.playVideo();
+            } catch (err) {}
+        }
+    }
 
         // รักษาให้เพลงบรรเลงหลัก (ytPlayer) เล่นต่อเนื่องไม่สะดุด
         if (isPlayingMusic && ytPlayer && typeof ytPlayer.playVideo === 'function') {
