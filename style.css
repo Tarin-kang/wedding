@@ -211,12 +211,24 @@ body {
     position: fixed;
     inset: 0;
     z-index: 200;
-    background: linear-gradient(135deg, #eaf2ec 0%, #c4dcd0 100%);
+    background: radial-gradient(circle at 50% 35%, #f4faf6 0%, #d5e9dc 50%, #8ca995 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1.5rem;
     transition: opacity .8s var(--ease), visibility .8s;
+    overflow: hidden;
+}
+
+.cover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(#4b6854 0.8px, transparent 0.8px), radial-gradient(#4b6854 0.8px, transparent 0.8px);
+    background-size: 28px 28px;
+    background-position: 0 0, 14px 14px;
+    opacity: 0.07;
+    pointer-events: none;
 }
 
 .cover.open {
@@ -229,14 +241,16 @@ body {
     width: 100%;
     max-width: 440px;
     perspective: 1000px;
+    position: relative;
+    z-index: 2;
 }
 
 .envelope-card {
     background: #f7faf8;
-    border-radius: 16px;
+    border-radius: 18px;
     border: 2px solid #7a9a83;
-    box-shadow: 0 15px 35px rgba(75, 104, 84, 0.22);
-    padding: 2.4rem 1.8rem;
+    box-shadow: 0 20px 45px rgba(43, 69, 51, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+    padding: 2.5rem 1.8rem;
     text-align: center;
     position: relative;
     overflow: hidden;
