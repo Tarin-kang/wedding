@@ -259,6 +259,8 @@ body {
     position: relative;
     overflow: hidden;
     color: #2b4533;
+    opacity: 1 !important;
+    transform: none !important;
 }
 
 .vintage-corner {

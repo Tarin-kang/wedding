@@ -302,7 +302,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    document.querySelectorAll('.fade-in').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= window.innerHeight + 50) {
+            el.classList.add('visible');
+        } else {
+            observer.observe(el);
+        }
+    });
 
     // ── 4. Real-Time Countdown Timer ──
     const weddingTargetDate = new Date('2026-12-12T15:00:00+07:00').getTime();
