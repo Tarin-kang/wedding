@@ -235,10 +235,10 @@ body {
 }
 
 .cover.open {
-    transform: translateY(-100%);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+    transform: translateY(-100%) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
 }
 
 .envelope-wrapper {

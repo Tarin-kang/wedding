@@ -1,3 +1,24 @@
+// Global Open Card Function (Immediate execution guarantee for click / touch / slide)
+window.executeOpenCard = function() {
+    const cover = document.getElementById('cover');
+    const card = document.getElementById('card');
+    if (cover) {
+        cover.classList.add('open');
+        cover.style.transform = 'translateY(-100%)';
+        cover.style.opacity = '0';
+        cover.style.visibility = 'hidden';
+        cover.style.pointerEvents = 'none';
+    }
+    if (card) {
+        card.classList.add('show');
+        card.style.opacity = '1';
+    }
+    document.body.style.overflow = 'auto';
+
+    if (typeof tryStartMusic === 'function') tryStartMusic();
+    if (typeof startPetals === 'function') startPetals();
+};
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // ── 1. Cover / Arch Shape Overlay Entrance (Click / Slide / Touch Open) ──
@@ -5,22 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const card = document.getElementById('card');
     const openCardBtn = document.getElementById('openCardBtn');
 
-    function executeOpenCard() {
-        if (!cover.classList.contains('open')) {
-            cover.classList.add('open');
-            card.classList.add('show');
-            document.body.style.overflow = 'auto';
-
-            // Trigger ambient sound and petals automatically upon opening
-            tryStartMusic();
-            startPetals();
-        }
-    }
-
     if (openCardBtn) {
         openCardBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            executeOpenCard();
+            if (e) e.stopPropagation();
+            window.executeOpenCard();
         });
     }
 

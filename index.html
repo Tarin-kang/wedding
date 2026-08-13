@@ -106,7 +106,7 @@
     </div>
 
     <!-- Page 1: Outer Cover / Digital Envelope (Classic Vintage Invitation Card) -->
-    <div class="cover" id="cover">
+    <div class="cover" id="cover" onclick="executeOpenCard()">
         <div class="envelope-wrapper">
             <div class="envelope-card">
                 <!-- Vintage Flourish Corner Borders -->
@@ -133,9 +133,9 @@
                     <!-- Prominent & Delicate English Couple Names Title -->
                     <h1 class="cover-couple-names" style="margin-top: 1.2rem; margin-bottom: 0.8rem;">Warangkana &amp; Tarin</h1>
 
-                    <!-- Arch Photo Frame (รูป ปก.jpg) -->
+                    <!-- Arch Photo Frame (WT Monogram Logo) -->
                     <div class="cover-photo-frame">
-                        <img id="coverPhotoImg" class="cover-photo-img" src="images/ปก.jpg" onerror="this.onerror=null;this.src='images/cover_photo.jpg';" alt="Warangkana &amp; Tarin Monogram Cover Photo">
+                        <img id="coverPhotoImg" class="cover-photo-img" src="images/wt_logo.jpg" onerror="this.onerror=null;this.src='images/cover_photo.jpg';" alt="">
                     </div>
                     
                     <!-- Balanced Date & Time Row -->
@@ -151,8 +151,8 @@
                     <!-- Venue Title -->
                     <p class="vintage-venue-text">ณ โกดังเจ๊ชิง &amp; เฮียฟู่</p>
                     
-                    <!-- Luxury Arch Pill-Shaped Open Card Button with Slide/Click Guide 🌿✨ -->
-                    <button class="pill-open-btn" id="openCardBtn" aria-label="เปิดการ์ดแต่งงาน">
+                    <!-- Luxury Arch Pill-Shaped Open Card Button with Direct Onclick Guarantee 🌿✨ -->
+                    <button class="pill-open-btn" id="openCardBtn" onclick="executeOpenCard(); if(event) event.stopPropagation();" aria-label="เปิดการ์ดแต่งงาน">
                         <span class="pill-text-th">✨ สไลด์ หรือ คลิกเปิดการ์ด ✨</span>
                         <span class="pill-text-en">SLIDE OR CLICK TO OPEN</span>
                     </button>
