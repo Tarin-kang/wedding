@@ -1,19 +1,50 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ── 1. Cover / Envelope Unseal ──
+    // ── 1. Cover / Arch Shape Overlay Entrance (Click / Slide / Touch Open) ──
     const cover = document.getElementById('cover');
     const card = document.getElementById('card');
     const openCardBtn = document.getElementById('openCardBtn');
 
-    openCardBtn.addEventListener('click', () => {
-        cover.classList.add('open');
-        card.classList.add('show');
-        document.body.style.overflow = 'auto';
+    function executeOpenCard() {
+        if (!cover.classList.contains('open')) {
+            cover.classList.add('open');
+            card.classList.add('show');
+            document.body.style.overflow = 'auto';
 
-        // Trigger ambient sound automatically upon opening if supported
-        tryStartMusic();
-        startPetals();
-    });
+            // Trigger ambient sound and petals automatically upon opening
+            tryStartMusic();
+            startPetals();
+        }
+    }
+
+    if (openCardBtn) {
+        openCardBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            executeOpenCard();
+        });
+    }
+
+    if (cover) {
+        // Support Click anywhere on cover
+        cover.addEventListener('click', () => {
+            executeOpenCard();
+        });
+
+        // Support Touch Swipe / Drag up to open cover smoothly
+        let touchStartY = 0;
+        cover.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        cover.addEventListener('touchend', (e) => {
+            const touchEndY = e.changedTouches[0].clientY;
+            const diffY = touchStartY - touchEndY;
+            // If swiped up more than 30px -> open cover
+            if (diffY > 30) {
+                executeOpenCard();
+            }
+        }, { passive: true });
+    }
 
     document.body.style.overflow = 'hidden';
 
