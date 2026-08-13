@@ -1,7 +1,8 @@
-// Global Open Card Function (Immediate execution guarantee for click / touch / slide)
+// Global Open Card Function (Defensive execution guarantee with Null-checks)
 window.executeOpenCard = function() {
-    const cover = document.getElementById('cover');
-    const card = document.getElementById('card');
+    const cover = document.getElementById('cover') || document.querySelector('.cover');
+    const card = document.getElementById('card') || document.querySelector('.card');
+    
     if (cover) {
         cover.classList.add('open');
         cover.style.transform = 'translateY(-100%)';
@@ -9,19 +10,21 @@ window.executeOpenCard = function() {
         cover.style.visibility = 'hidden';
         cover.style.pointerEvents = 'none';
         setTimeout(() => {
-            cover.style.display = 'none';
+            if (cover) cover.style.display = 'none';
         }, 400);
     }
+    
     if (card) {
         card.classList.add('show');
         card.style.opacity = '1';
         card.style.display = 'block';
     }
+    
     document.body.style.overflow = 'auto';
 
     // Activate all sections visible
     document.querySelectorAll('.fade-in').forEach(el => {
-        el.classList.add('visible');
+        if (el) el.classList.add('visible');
     });
 
     if (typeof tryStartMusic === 'function') tryStartMusic();
@@ -30,10 +33,10 @@ window.executeOpenCard = function() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ── 1. Cover / Arch Shape Overlay Entrance (Click / Slide / Touch Open) ──
-    const cover = document.getElementById('cover');
-    const card = document.getElementById('card');
-    const openCardBtn = document.getElementById('openCardBtn');
+    // ── 1. Cover / Arch Shape Overlay Entrance (Click / Slide / Touch Open with Null-checks) ──
+    const cover = document.getElementById('cover') || document.querySelector('.cover');
+    const card = document.getElementById('card') || document.querySelector('.card');
+    const openCardBtn = document.getElementById('openCardBtn') || document.querySelector('.pill-open-btn');
 
     if (openCardBtn) {
         openCardBtn.addEventListener('click', (e) => {
@@ -43,10 +46,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (cover) {
-        // Support Click anywhere on cover
         cover.addEventListener('click', () => {
-            executeOpenCard();
+            window.executeOpenCard();
         });
+
+        let touchStartY = 0;
+        cover.addEventListener('touchstart', (e) => {
+            if (e.touches && e.touches[0]) {
+                touchStartY = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        cover.addEventListener('touchend', (e) => {
+            if (e.changedTouches && e.changedTouches[0]) {
+                const touchEndY = e.changedTouches[0].clientY;
+                const diffY = touchStartY - touchEndY;
+                if (diffY > 30) {
+                    window.executeOpenCard();
+                }
+            }
+        }, { passive: true });
+    }
 
         // Support Touch Swipe / Drag up to open cover smoothly
         let touchStartY = 0;
