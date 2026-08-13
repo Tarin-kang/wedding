@@ -8,12 +8,21 @@ window.executeOpenCard = function() {
         cover.style.opacity = '0';
         cover.style.visibility = 'hidden';
         cover.style.pointerEvents = 'none';
+        setTimeout(() => {
+            cover.style.display = 'none';
+        }, 400);
     }
     if (card) {
         card.classList.add('show');
         card.style.opacity = '1';
+        card.style.display = 'block';
     }
     document.body.style.overflow = 'auto';
+
+    // Activate all sections visible
+    document.querySelectorAll('.fade-in').forEach(el => {
+        el.classList.add('visible');
+    });
 
     if (typeof tryStartMusic === 'function') tryStartMusic();
     if (typeof startPetals === 'function') startPetals();
